@@ -3,7 +3,7 @@ package cs131.pa1.filter.concurrent;
 import java.io.File;
 import java.io.IOException;
 
-public class Cd extends ConcurrentFilter{
+public class Cd extends ConcurrentFilter {
 	// hasBeenSwapped: true if working directory has changed
 	// swappingTolocation: the path that will be the new working directory
 	boolean hasBeenSwapped;
@@ -11,7 +11,7 @@ public class Cd extends ConcurrentFilter{
 	
 	// Constructs this Cd filter with a path
 	public Cd (String path) throws IOException, MissingArgumentException, TooManyArgumentsException {
-		
+
 		// Cd must have a path to change the directory
 		if (path==null) {
 			throw new MissingArgumentException();
@@ -39,6 +39,11 @@ public class Cd extends ConcurrentFilter{
 		if (!f.exists() || !f.isDirectory()){
 			throw new IOException();
 		}
+	}
+
+	@Override
+	public void run() {
+		this.process();
 	}
 	
 	// Executes the CD command, which has not occurred before

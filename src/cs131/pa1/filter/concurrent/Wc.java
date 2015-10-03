@@ -11,6 +11,11 @@ public class Wc extends ConcurrentFilter {
 		nWords = 0;
 		nChars = 0;
 	}
+
+	@Override
+    public void run() {
+
+    }
 	
 	@Override
 	protected String processLine(String line) {

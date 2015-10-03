@@ -1,6 +1,7 @@
 package cs131.pa1.filter.concurrent;
 
-import java.util.LinkedList;
+import java.util.*;
+import java.util.concurrent.*;
 
 public class OutPrinter extends ConcurrentFilter {
 	
@@ -9,10 +10,15 @@ public class OutPrinter extends ConcurrentFilter {
 	public OutPrinter() {
 		super();
 	}
+
+    @Override
+    public void run() {
+
+    }
 	
 	public OutPrinter(String errorMessage) {
 		standardError = true;
-		input = new LinkedList<String>();
+		input = new LinkedBlockingQueue<String>();
 		input.add(errorMessage);
 	}
 	

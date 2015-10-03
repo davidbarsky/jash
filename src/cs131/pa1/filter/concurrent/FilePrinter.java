@@ -18,6 +18,11 @@ public class FilePrinter extends ConcurrentFilter {
 			// overwrite.
 		}	
 	}
+
+    @Deprecated
+	public void run() {
+
+	}
 	
 	@Override
 	protected String processLine(String line) {

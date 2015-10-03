@@ -30,8 +30,14 @@ public class Cat extends ConcurrentFilter {
 		}
 	}
 
+    @Override
+    public void run() {
+        this.process();
+    }
+
 	@Override
-	public void process(){
+	public void process()
+    {
 		while (!isDone()){
 			Scanner scan = scanners.get(scannerNumber);
 			while (scan.hasNextLine()){

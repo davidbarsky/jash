@@ -7,9 +7,14 @@ public class Uniq extends ConcurrentFilter {
 
 	private Set<String> seen;
 	
-	public Uniq(){
+	public Uniq() {
 		seen = new HashSet<String>();
 	}
+
+    @Override
+    public void run() {
+        // implement
+    }
 	
 	@Override
 	protected String processLine(String line) {

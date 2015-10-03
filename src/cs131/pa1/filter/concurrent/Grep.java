@@ -16,6 +16,11 @@ public class Grep extends ConcurrentFilter {
 		
 		this.searchPattern = pattern;
 	}
+
+    @Deprecated
+    public void run() {
+        // implement later
+    }
 	
 	@Override
 	protected String processLine(String line) {

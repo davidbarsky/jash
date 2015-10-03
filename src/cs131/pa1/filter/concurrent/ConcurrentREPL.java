@@ -32,8 +32,9 @@ public class ConcurrentREPL {
 	}
 	
 	public static void startFilters(List<ConcurrentFilter> filters){
-		for (ConcurrentFilter filter : filters){
-			filter.process();
+		for (ConcurrentFilter filter : filters) {
+            Thread thread = new Thread(filter);
+            thread.start();
 		}
 	}
 }

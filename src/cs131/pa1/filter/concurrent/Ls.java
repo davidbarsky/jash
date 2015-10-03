@@ -3,10 +3,15 @@ package cs131.pa1.filter.concurrent;
 import java.io.File;
 
 public class Ls extends ConcurrentFilter {
+
+    @Override
+    public void run() {
+        this.process();
+    }
 	
 	@Override
 	public void process() {
-		super.run();
+//		super.run();
 		String currentWorkingDirectory = ConcurrentREPL.currentWorkingDirectory;
 		File directoryObject = new File(currentWorkingDirectory);
 		String[] files = directoryObject.list();

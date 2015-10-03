@@ -2,14 +2,15 @@ package cs131.pa1.filter.concurrent;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingDeque;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import cs131.pa1.filter.Filter;
 
 // THIS IS SEQUENTIAL. YOU MUST MAKE IT CONCURRENT.
 public abstract class ConcurrentFilter extends Filter implements Runnable {
 	
-	protected LinkedList<String> input;
-	protected LinkedList<String> output;
+	protected LinkedBlockingQueue<String> input;
+	protected LinkedBlockingQueue<String> output;
 	
 	@Override
 	public void setPrevFilter(Filter prevFilter) {
@@ -23,7 +24,7 @@ public abstract class ConcurrentFilter extends Filter implements Runnable {
 			this.next = concurrentNext;
 			concurrentNext.prev = this;
 			if (this.output == null){
-				this.output = new LinkedList<String>();
+				this.output = new LinkedBlockingQueue<String>();
 			}
 			concurrentNext.input = this.output;
 		} else {
@@ -46,10 +47,5 @@ public abstract class ConcurrentFilter extends Filter implements Runnable {
 		return input.size() == 0;
 	}
 
-	@Override
-	public void run() {
-
-	}
-	
 	protected abstract String processLine(String line);
 }
