@@ -37,7 +37,12 @@ public abstract class ConcurrentFilter extends Filter implements Runnable {
 			String line = input.poll();
 			String processedLine = processLine(line);
 			if (processedLine != null){
-				output.add(processedLine);
+                try {
+                    output.put(processedLine);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+//				output.add(processedLine);
 			}
 		}	
 	}
