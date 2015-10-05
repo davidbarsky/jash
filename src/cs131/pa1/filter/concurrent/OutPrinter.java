@@ -13,7 +13,7 @@ public class OutPrinter extends ConcurrentFilter {
 
     @Override
     public void run() {
-
+        this.process();
     }
 	
 	public OutPrinter(String errorMessage) {
@@ -28,7 +28,7 @@ public class OutPrinter extends ConcurrentFilter {
 	
 	@Override
 	protected String processLine(String line) {
-		System.out.println(line);
-		return null;
-	}	
+        System.out.println(line);
+        return null;
+	}
 }

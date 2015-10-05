@@ -6,6 +6,7 @@ public class Ls extends ConcurrentFilter {
 
     @Override
     public void run() {
+        System.out.println("LS is running.");
         this.process();
     }
 	

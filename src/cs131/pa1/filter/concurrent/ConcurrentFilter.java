@@ -31,7 +31,10 @@ public abstract class ConcurrentFilter extends Filter implements Runnable {
 			throw new RuntimeException("Should not attempt to link dissimilar filter types.");
 		}
 	}
-	
+
+    @Override
+    public
+
 	public void process(){
 		while (!input.isEmpty()){
 			String line = input.poll();
@@ -42,14 +45,13 @@ public abstract class ConcurrentFilter extends Filter implements Runnable {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-//				output.add(processedLine);
 			}
 		}	
 	}
-	
+
 	@Override
 	public boolean isDone() {
-		return input.size() == 0;
+        return true;
 	}
 
 	protected abstract String processLine(String line);

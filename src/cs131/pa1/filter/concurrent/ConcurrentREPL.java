@@ -35,7 +35,6 @@ public class ConcurrentREPL {
 		for (ConcurrentFilter filter : filters) {
             Thread thread = new Thread(filter);
             thread.start();
-//            filter.process();
             try {
                 thread.join();
             } catch (InterruptedException e) {
