@@ -11,11 +11,6 @@ public class Uniq extends ConcurrentFilter {
 		seen = new HashSet<String>();
 	}
 
-    @Override
-    public void run() {
-        // implement
-    }
-	
 	@Override
 	protected String processLine(String line) {
 		if (!seen.contains(line)){

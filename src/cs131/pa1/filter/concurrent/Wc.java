@@ -13,11 +13,6 @@ public class Wc extends ConcurrentFilter {
 	}
 
 	@Override
-    public void run() {
-
-    }
-	
-	@Override
 	protected String processLine(String line) {
 		nLines += 1;
 		

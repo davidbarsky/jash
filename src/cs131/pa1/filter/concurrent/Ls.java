@@ -4,12 +4,6 @@ import java.io.File;
 
 public class Ls extends ConcurrentFilter {
 
-    @Override
-    public void run() {
-        System.out.println("LS is running.");
-        this.process();
-    }
-	
 	@Override
 	public void process() {
 		String currentWorkingDirectory = ConcurrentREPL.currentWorkingDirectory;
@@ -21,10 +15,14 @@ public class Ls extends ConcurrentFilter {
             } catch (InterruptedException e) {
                 System.out.print(e.fillInStackTrace());
             }
-//			this.output.add(file);
 		}
+        try {
+            this.output.put(DONE);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 	}
-	
+
 	@Override
 	protected String processLine(String line) {
 		// Should never be called, as we have overridden process.

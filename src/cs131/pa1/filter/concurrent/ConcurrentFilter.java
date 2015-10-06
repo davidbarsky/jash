@@ -11,6 +11,8 @@ public abstract class ConcurrentFilter extends Filter implements Runnable {
 	
 	protected LinkedBlockingQueue<String> input;
 	protected LinkedBlockingQueue<String> output;
+
+    public static String DONE = "--DONE--";
 	
 	@Override
 	public void setPrevFilter(Filter prevFilter) {
@@ -33,7 +35,9 @@ public abstract class ConcurrentFilter extends Filter implements Runnable {
 	}
 
     @Override
-    public
+    public void run() {
+        this.process();
+    }
 
 	public void process(){
 		while (!input.isEmpty()){

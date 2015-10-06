@@ -37,7 +37,7 @@ public class ConcurrentREPL {
             thread.start();
             try {
                 thread.join();
-            } catch (InterruptedException e) {
+            } catch(InterruptedException e) {
                 e.printStackTrace();
             }
 		}

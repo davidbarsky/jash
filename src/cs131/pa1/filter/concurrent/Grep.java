@@ -17,16 +17,13 @@ public class Grep extends ConcurrentFilter {
 		this.searchPattern = pattern;
 	}
 
-    @Deprecated
-    public void run() {
-        // implement later
-    }
-	
 	@Override
 	protected String processLine(String line) {
 		if (line.contains(searchPattern)){
 			return line;
-		}
+		} else if (line == DONE) {
+            return null;
+        }
 		return null;
 	}
 }

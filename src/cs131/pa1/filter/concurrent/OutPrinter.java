@@ -28,7 +28,11 @@ public class OutPrinter extends ConcurrentFilter {
 	
 	@Override
 	protected String processLine(String line) {
-        System.out.println(line);
+        if (line == DONE) {
+            return null;
+        } else {
+            System.out.println(line);
+        }
         return null;
 	}
 }

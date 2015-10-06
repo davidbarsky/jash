@@ -19,14 +19,13 @@ public class FilePrinter extends ConcurrentFilter {
 		}	
 	}
 
-    @Deprecated
-	public void run() {
-
-	}
-	
 	@Override
 	protected String processLine(String line) {
-		printWriter.println(line);
+        if (line == DONE) {
+            // nothing
+        } else {
+            printWriter.println(line);
+        }
 		isDone();
 		return null;
 	}

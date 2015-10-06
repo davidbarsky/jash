@@ -41,11 +41,6 @@ public class Cd extends ConcurrentFilter {
 		}
 	}
 
-	@Override
-	public void run() {
-		this.process();
-	}
-	
 	// Executes the CD command, which has not occurred before
 	// this method is called.
 	public void process(){
