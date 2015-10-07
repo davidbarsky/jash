@@ -39,8 +39,9 @@ public class Cat extends ConcurrentFilter {
 			}
 			scannerNumber++;
 		}
+        output.add(DONE);
 	}
-	
+
 	@Override
 	protected String processLine(String line) {
 		// This method should never be called, as we are overriding the

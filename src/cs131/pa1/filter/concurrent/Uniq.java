@@ -13,6 +13,8 @@ public class Uniq extends ConcurrentFilter {
 
 	@Override
 	protected String processLine(String line) {
+        if (line == DONE) return null;
+
 		if (!seen.contains(line)){
 			seen.add(line);
 			return line;

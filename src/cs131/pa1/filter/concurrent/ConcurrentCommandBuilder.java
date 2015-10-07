@@ -11,27 +11,27 @@ import java.util.Set;
 import cs131.pa1.filter.Message;
 
 public class ConcurrentCommandBuilder {
-	
+
 	// commands that requires piped input
-	private final static Set<String> PIPES_IN = new HashSet<String>(Arrays.asList(new String[] {"Grep","Uniq","Wc","Fileprinter","OutPrinter"}));
+	private final static Set<String> PIPES_IN = new HashSet<String>(Arrays.asList(new String[] {"Grep","Uniq","Wc","Fileprinter","OutPrinter","Sort"}));
 	// commands that produces piped output
 	private final static Set<String> PIPES_OUT = new HashSet<String>(Arrays.asList(new String[] {"Cat","Ls","Pwd","Grep","Wc","Uniq"}));
-	
+
 	// Returns a list of concurrentFilters, one for each command and one for the output type
-	public static List<ConcurrentFilter> createFiltersFromCommand(String command){	
-		
+	public static List<ConcurrentFilter> createFiltersFromCommand(String command){
+
 		// Determining whether to print to console or file and removing redirection from command
 		ConcurrentFilter finalFilter = determineFinalFilter(command);
-		command = adjustCommandToRemoveFinalFilter(command);		
-		
+		command = adjustCommandToRemoveFinalFilter(command);
+
 		//parse the input command based on pipes and create a list of filters
 		List<String> subCommands = Arrays.asList(command.split("\\|"));
 		List<ConcurrentFilter> filterPipeline = new ArrayList<ConcurrentFilter>();
-		
+
 		for (String subCommand : subCommands){
 			ConcurrentFilter subFilter = constructFilterFromSubCommand(subCommand.trim());
 			ConcurrentFilter prevFilter = !filterPipeline.isEmpty() ? filterPipeline.get(filterPipeline.size()-1) : null;
-			
+
 			// subCommandError is true if: command not found, invalid argument, file/directory not found
 			boolean subCommandError = (subFilter instanceof OutPrinter) && ((OutPrinter)subFilter).isStandardError();
 			if (subCommandError) {
@@ -48,9 +48,9 @@ public class ConcurrentCommandBuilder {
 			}
 			filterPipeline.add(subFilter);
 		}
-		
+
 		filterPipeline.add(finalFilter);
-		
+
 		linkFilters(filterPipeline);
 		return filterPipeline;
 	}
@@ -66,9 +66,9 @@ public class ConcurrentCommandBuilder {
 		}
 		return null;
 	}
-	
+
 	//link the filters' input and output queue
-	private static void linkFilters(List<ConcurrentFilter> filters){	
+	private static void linkFilters(List<ConcurrentFilter> filters){
 		for (int i = 0; i < filters.size() - 1; i++){
 			filters.get(i).setNextFilter(filters.get(i+1));
 		}
@@ -79,7 +79,7 @@ public class ConcurrentCommandBuilder {
 		String[] parsed = subCommand.split(" ",2);
 		String cmd = parsed[0].toLowerCase();
 		String param = (parsed.length>1)? parsed[1].trim():null;
-			
+
 		switch(cmd) {
 		case "cd":
 			try {
@@ -115,11 +115,13 @@ public class ConcurrentCommandBuilder {
 			return new Wc();
 		case "uniq":
 			return new Uniq();
+        case "sort":
+            return new Sort();
 		default:
 			return new OutPrinter(Message.COMMAND_NOT_FOUND.with_parameter(subCommand));
-		}	
+		}
 	}
-	
+
 	private static String adjustCommandToRemoveFinalFilter(String command){
 		if (command.contains(">")){
 			return command.substring(0, command.lastIndexOf(">"));
@@ -127,7 +129,7 @@ public class ConcurrentCommandBuilder {
 			return command;
 		}
 	}
-	
+
 	private static ConcurrentFilter determineFinalFilter(String command){
 		if (command.contains(">")){
 			String fileName = command.substring(command.lastIndexOf(">") + 1).trim();

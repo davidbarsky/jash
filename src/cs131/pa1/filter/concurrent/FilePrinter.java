@@ -22,7 +22,7 @@ public class FilePrinter extends ConcurrentFilter {
 	@Override
 	protected String processLine(String line) {
         if (line == DONE) {
-            // nothing
+            return null;
         } else {
             printWriter.println(line);
         }

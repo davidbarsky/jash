@@ -14,6 +14,8 @@ public class Wc extends ConcurrentFilter {
 
 	@Override
 	protected String processLine(String line) {
+        if (line == DONE) return null;
+
 		nLines += 1;
 		
 		for (String s : line.split(" ")){
